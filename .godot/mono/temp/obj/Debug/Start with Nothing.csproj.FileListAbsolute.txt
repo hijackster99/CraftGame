@@ -1,0 +1,18 @@
+C:\Users\jonat\OneDrive\Documents\CraftGame\.godot\mono\temp\bin\Debug\Start with Nothing.deps.json
+C:\Users\jonat\OneDrive\Documents\CraftGame\.godot\mono\temp\bin\Debug\Start with Nothing.runtimeconfig.json
+C:\Users\jonat\OneDrive\Documents\CraftGame\.godot\mono\temp\bin\Debug\Start with Nothing.dll
+C:\Users\jonat\OneDrive\Documents\CraftGame\.godot\mono\temp\bin\Debug\Start with Nothing.pdb
+C:\Users\jonat\OneDrive\Documents\CraftGame\.godot\mono\temp\bin\Debug\GodotSharp.dll
+C:\Users\jonat\OneDrive\Documents\CraftGame\.godot\mono\temp\bin\Debug\GodotSharpEditor.dll
+C:\Users\jonat\OneDrive\Documents\CraftGame\.godot\mono\temp\obj\Debug\Start with Nothing.csproj.AssemblyReference.cache
+C:\Users\jonat\OneDrive\Documents\CraftGame\.godot\mono\temp\obj\Debug\Start with Nothing.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jonat\OneDrive\Documents\CraftGame\.godot\mono\temp\obj\Debug\Start with Nothing.AssemblyInfoInputs.cache
+C:\Users\jonat\OneDrive\Documents\CraftGame\.godot\mono\temp\obj\Debug\Start with Nothing.AssemblyInfo.cs
+C:\Users\jonat\OneDrive\Documents\CraftGame\.godot\mono\temp\obj\Debug\Start with Nothing.csproj.CoreCompileInputs.cache
+C:\Users\jonat\OneDrive\Documents\CraftGame\.godot\mono\temp\obj\Debug\Start with Nothing.sourcelink.json
+C:\Users\jonat\OneDrive\Documents\CraftGame\.godot\mono\temp\obj\Debug\Start with Nothing.csproj.CopyComplete
+C:\Users\jonat\OneDrive\Documents\CraftGame\.godot\mono\temp\obj\Debug\Start with Nothing.dll
+C:\Users\jonat\OneDrive\Documents\CraftGame\.godot\mono\temp\obj\Debug\refint\Start with Nothing.dll
+C:\Users\jonat\OneDrive\Documents\CraftGame\.godot\mono\temp\obj\Debug\Start with Nothing.pdb
+C:\Users\jonat\OneDrive\Documents\CraftGame\.godot\mono\temp\obj\Debug\Start with Nothing.genruntimeconfig.cache
+C:\Users\jonat\OneDrive\Documents\CraftGame\.godot\mono\temp\obj\Debug\ref\Start with Nothing.dll
