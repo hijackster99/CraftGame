@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://cjx1koxthqxk7"]
+[gd_scene load_steps=6 format=3 uid="uid://cjx1koxthqxk7"]
 
-[ext_resource type="Texture2D" uid="uid://dqxgedwovpa8u" path="res://textures/MainTileSet.png" id="1_3oeki"]
-[ext_resource type="Script" path="res://Scripts/generate.cs" id="2_x41hj"]
+[ext_resource type="Texture2D" uid="uid://dqxgedwovpa8u" path="res://Textures/MainTileSet.png" id="1_3oeki"]
+[ext_resource type="Script" path="res://Scripts/WorldGenerator.cs" id="1_6jxy8"]
+[ext_resource type="Script" path="res://Scripts/WorldData.cs" id="3_yqiib"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_78kq8"]
 texture = ExtResource("1_3oeki")
@@ -24,14 +25,15 @@ texture_region_size = Vector2i(64, 64)
 tile_size = Vector2i(64, 64)
 sources/0 = SubResource("TileSetAtlasSource_78kq8")
 
-[node name="Node2D" type="Node2D"]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("map", "world")]
+script = ExtResource("1_6jxy8")
+map = NodePath("TileMap")
+world = NodePath("TileMap")
 
-[node name="TileMap" type="TileMap" parent="." node_paths=PackedStringArray("map")]
-position = Vector2(-2, 0)
+[node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_4a8l6")
 format = 2
-script = ExtResource("2_x41hj")
-map = NodePath(".")
-worldWidth = 420
-worldHeight = 41
-worldDepth = 378
+script = ExtResource("3_yqiib")
+worldWidth = 10
+worldHeight = 1
+worldDepth = 9

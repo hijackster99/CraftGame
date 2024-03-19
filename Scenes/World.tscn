@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bx334i7k0rrqy"]
+
+[ext_resource type="Script" path="res://Scripts/InitWorld.cs" id="1_vt5l2"]
+
+[node name="World" type="Node2D"]
+script = ExtResource("1_vt5l2")

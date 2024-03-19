@@ -1,2 +1,4 @@
 Node
+CollisionShape2D
+CharacterBody2D
 TileMap

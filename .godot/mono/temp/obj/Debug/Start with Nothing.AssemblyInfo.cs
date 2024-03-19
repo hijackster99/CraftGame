@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Start with Nothing")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6f23cb84afd3eff500e16e1ad146ab2271a8da61")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e3067646bac0141cb7851cff944c6b98024f8628")]
 [assembly: System.Reflection.AssemblyProductAttribute("Start with Nothing")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Start with Nothing")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
