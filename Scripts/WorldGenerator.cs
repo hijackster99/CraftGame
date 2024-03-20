@@ -40,11 +40,11 @@ public partial class WorldGenerator : Node
 
     public void initializeWorldGen()
     {
-        for (int x = 0; x < world.worldWidth; x++)
+        for (int x = world.worldWidth/-2; x < world.worldWidth/2; x++)
         {
-            for (int y = world.worldHeight - 1; y < world.worldDepth; y++)
+            for (int y = 0; y < world.worldDepth; y++)
             {
-                world.setTile(x - world.worldWidth / 2, y, 1);
+                world.setTile(x, y, 1);
             }
         }
     }

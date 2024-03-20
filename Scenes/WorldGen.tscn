@@ -75,9 +75,8 @@ world = NodePath("TileMap")
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_4a8l6")
-collision_visibility_mode = 1
 format = 2
 script = ExtResource("3_yqiib")
-worldWidth = 10
-worldHeight = 1
-worldDepth = 9
+worldWidth = 1024
+worldHeight = 256
+worldDepth = 4096

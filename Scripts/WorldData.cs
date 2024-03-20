@@ -5,54 +5,83 @@ public partial class WorldData : TileMap
 {
 	private byte[,] world;
 
+	public byte this[int x, int y]
+	{
+		get { return world[x + worldWidth/2, y + worldHeight]; }
+		set { world[x + worldWidth / 2, y + worldHeight] = value; }
+	}
+
 	[Export]
 	public int worldWidth { get; private set; }
-    [Export]
-    public int worldHeight { get; private set; }
-    [Export]
-    public int worldDepth { get; private set; }
-
-    private bool load = false;
-    
-    // Called when the node enters the scene tree for the first time.
-    public override void _Ready()
+	[Export]
+	public int worldHeight { get; private set; }
+	[Export]
+	public int worldDepth { get; private set; }
+	
+	// Called when the node enters the scene tree for the first time.
+	public override void _Ready()
 	{
-        world = new byte[worldWidth, worldHeight + worldDepth];
-	}
+		world = new byte[worldWidth, worldHeight + worldDepth];
+		GD.Print(world.Length);
+    }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-        if (GetTree().CurrentScene.Name == "World" && !load)
-        {
-            for (int x = 0; x < worldWidth; x++)
-            {
-                for (int y = 0; y < worldHeight + worldDepth; y++)
-                {
-                    SetCell(0, new Vector2I(x - worldWidth / 2, y - worldHeight), 0, new Vector2I(world[x, y] % 16, world[x, y] / 16));
-                }
-            }
-            load = true;
-        }
 	}
 
 	public void setTile(int x, int y, byte tile)
 	{
-		world[x + worldWidth / 2, y + worldHeight] = tile;
+		this[x, y] = tile;
 	}
 
-    public void setTile(Vector2I coords, byte tile)
+	public void setTile(Vector2I coords, byte tile)
+	{
+		this[coords.X, coords.Y] = tile;
+	}
+
+	public byte getTile(int x, int y)
+	{
+		return this[x, y];
+	}
+
+	public byte getTile(Vector2I coords)
+	{
+		return this[coords.X, coords.Y];
+	}
+
+    public void setTileDirect(int x, int y, byte tile)
     {
-        world[coords.X + worldWidth / 2, coords.Y + worldHeight] = tile;
+        world[x, y] = tile;
     }
 
-    public byte getTile(int x, int y)
+    public void setTileDirect(Vector2I coords, byte tile)
     {
-        return world[x + worldWidth / 2, y + worldHeight];
+        world[coords.X, coords.Y] = tile;
     }
 
-    public byte getTile(Vector2I coords)
+    public byte getTileDirect(int x, int y)
     {
-        return world[coords.X + worldWidth / 2, coords.Y + worldHeight];
+        return world[x, y];
     }
+
+    public byte getTileDirect(Vector2I coords)
+    {
+        return world[coords.X, coords.Y];
+    }
+
+	public Vector2I TiletoDirect(Vector2I tileCoords)
+	{
+		return new Vector2I(tileCoords.X + worldWidth / 2, tileCoords.Y + worldHeight);
+	}
+
+    public Vector2I DirecttoTile(Vector2I directCoords)
+    {
+		return new Vector2I(directCoords.X - worldWidth / 2, directCoords.Y - worldHeight);
+    }
+
+	public void printSize()
+	{
+		GD.Print(world.Length);
+	}
 }

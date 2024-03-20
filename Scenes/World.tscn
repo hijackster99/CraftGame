@@ -16,8 +16,8 @@ right = 68
 jump = 32
 maxVelocity = 5.0
 terminalVelocity = 60.0
-accel = 1.0
-brake = 3.0
+accel = 5.0
+brake = 10.0
 jumpPower = -10.0
 gravity = 9.81
 

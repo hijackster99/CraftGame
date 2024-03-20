@@ -10,6 +10,13 @@ public partial class InitWorld : Node
 
 		player.GetParent().RemoveChild(player);
 
+		Controller con = player as Controller;
+
+		GD.Print(GlobalData.map);
+
+		con.map = GlobalData.map;
+		con.world = GlobalData.map as WorldData;
+
 		GlobalData.map.AddChild(player);
 
 		GetTree().Root.AddChild(GlobalData.map);
