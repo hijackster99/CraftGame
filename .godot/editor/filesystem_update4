@@ -1,7 +1,1 @@
-res://Scripts/InitWorld.cs
-res://Scripts/WorldData.cs
-res://Scripts/WorldGenerator.cs
-res://Scenes/World.tscn
 res://Scenes/WorldGen.tscn
-res://Scripts/Controller.cs
-res://Resources/PlayerHitBox.tres

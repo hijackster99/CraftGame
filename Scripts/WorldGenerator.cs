@@ -9,6 +9,8 @@ public partial class WorldGenerator : Node
     [Export]
     private WorldData world;
 
+    private String worldName = "Test";
+
     System.Threading.Thread worldGen;
 
     // Called when the node enters the scene tree for the first time.
@@ -23,6 +25,10 @@ public partial class WorldGenerator : Node
     {
         if (!worldGen.IsAlive)
         {
+            FileAccess file = FileAccess.Open("user://Saves//" + worldName + "//world.dat", FileAccess.ModeFlags.Write);
+
+            world.save();
+
             SceneTree tree = GetTree();
 
             map.GetParent().RemoveChild(map);
