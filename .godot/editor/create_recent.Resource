@@ -1,1 +1,2 @@
+CanvasItemMaterial
 RectangleShape2D

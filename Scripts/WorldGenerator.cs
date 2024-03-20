@@ -42,9 +42,9 @@ public partial class WorldGenerator : Node
     {
         for (int x = 0; x < world.worldWidth; x++)
         {
-            for (int y = 0; y < world.worldDepth; y++)
+            for (int y = world.worldHeight - 1; y < world.worldDepth; y++)
             {
-                world.setTile(x - world.worldWidth / 2, y, 0);
+                world.setTile(x - world.worldWidth / 2, y, 1);
             }
         }
     }

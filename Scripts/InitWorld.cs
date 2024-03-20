@@ -6,6 +6,12 @@ public partial class InitWorld : Node
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		Node player = GetNode("Player");
+
+		player.GetParent().RemoveChild(player);
+
+		GlobalData.map.AddChild(player);
+
 		GetTree().Root.AddChild(GlobalData.map);
 	}
 
