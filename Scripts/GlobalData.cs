@@ -3,5 +3,7 @@ using System;
 
 public class GlobalData
 {
-	public static TileMap map { get; set; }
+	public static int worldWidth;
+    public static int worldHeight;
+    public static int worldDepth;
 }

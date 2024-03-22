@@ -40,7 +40,6 @@ public partial class Controller : CharacterBody2D
 	public override void _Ready()
 	{
 		loadedChunks = new List<Chunk>();
-		world.printSize();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

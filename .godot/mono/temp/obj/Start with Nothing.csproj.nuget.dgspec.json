@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\USERS\\JONAT\\ONEDRIVE\\DOCUMENTS\\CRAFTGAME\\Start with Nothing.csproj": {}
+    "C:\\Users\\jonat\\OneDrive\\Documents\\CraftGame\\Start with Nothing.csproj": {}
   },
   "projects": {
-    "C:\\USERS\\JONAT\\ONEDRIVE\\DOCUMENTS\\CRAFTGAME\\Start with Nothing.csproj": {
+    "C:\\Users\\jonat\\OneDrive\\Documents\\CraftGame\\Start with Nothing.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\USERS\\JONAT\\ONEDRIVE\\DOCUMENTS\\CRAFTGAME\\Start with Nothing.csproj",
+        "projectUniqueName": "C:\\Users\\jonat\\OneDrive\\Documents\\CraftGame\\Start with Nothing.csproj",
         "projectName": "Start with Nothing",
-        "projectPath": "C:\\USERS\\JONAT\\ONEDRIVE\\DOCUMENTS\\CRAFTGAME\\Start with Nothing.csproj",
+        "projectPath": "C:\\Users\\jonat\\OneDrive\\Documents\\CraftGame\\Start with Nothing.csproj",
         "packagesPath": "C:\\Users\\jonat\\.nuget\\packages\\",
-        "outputPath": "C:\\USERS\\JONAT\\ONEDRIVE\\DOCUMENTS\\CRAFTGAME\\.godot\\mono\\temp\\obj\\",
+        "outputPath": "C:\\Users\\jonat\\OneDrive\\Documents\\CraftGame\\.godot\\mono\\temp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\jonat\\AppData\\Roaming\\NuGet\\NuGet.Config",

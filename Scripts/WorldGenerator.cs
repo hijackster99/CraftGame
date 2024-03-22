@@ -3,11 +3,14 @@ using System;
 
 public partial class WorldGenerator : Node
 {
-    [Export]
-    private TileMap map;
+    private byte[,] world;
 
     [Export]
-    private WorldData world;
+    private int worldWidth;
+    [Export]
+    private int worldHeight;
+    [Export]
+    private int worldDepth;
 
     private String worldName = "Test";
 
@@ -16,6 +19,12 @@ public partial class WorldGenerator : Node
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
+        GlobalData.worldWidth = worldWidth;
+        GlobalData.worldHeight = worldHeight;
+        GlobalData.worldDepth = worldDepth;
+
+        world = new byte[worldWidth * 32, (worldHeight + worldDepth) * 32];
+
         worldGen = new System.Threading.Thread(generateWorld);
         worldGen.Start();
     }
@@ -25,17 +34,9 @@ public partial class WorldGenerator : Node
     {
         if (!worldGen.IsAlive)
         {
-            FileAccess file = FileAccess.Open("user://Saves//" + worldName + "//world.dat", FileAccess.ModeFlags.Write);
+            save();
 
-            world.save();
-
-            SceneTree tree = GetTree();
-
-            map.GetParent().RemoveChild(map);
-
-            GlobalData.map = map;
-
-            tree.ChangeSceneToFile("res://Scenes/World.tscn");
+            GetTree().ChangeSceneToFile("res://Scenes/World.tscn");
         }
     }
 
@@ -46,12 +47,29 @@ public partial class WorldGenerator : Node
 
     public void initializeWorldGen()
     {
-        for (int x = world.worldWidth/-2; x < world.worldWidth/2; x++)
+        for (int x = worldWidth * -16; x < worldWidth * 16; x++)
         {
-            for (int y = 0; y < world.worldDepth; y++)
+            for (int y = 0; y < worldDepth * 32; y++)
             {
-                world.setTile(x, y, 1);
+                world[x, y] = 1;
             }
         }
+    }
+
+    public void save()
+    {
+        for(int x = 0; x < worldWidth; x++)
+        {
+            for(int y = 0; y < worldHeight + worldDepth; y++)
+            {
+                using var file = FileAccess.Open("user://Saves//" + worldName + "//level//chunk" + x + "_" + y, FileAccess.ModeFlags.Write);
+
+                for(int i = 0; i < 1024; i++)
+                {
+                    file.Store8(world[x * 32 + i % 32, y * 32 + i / 32]);
+                }
+            }
+        }
+
     }
 }

@@ -1,21 +1,23 @@
 using Godot;
 using System;
-
+using System.Collections.Generic;
+using System.Linq;
 public partial class WorldData : TileMap
 {
-	private Chunk[,] world;
+	private List<Chunk> world;
 
-	[Export]
 	public int worldWidth { get; private set; }
-	[Export]
 	public int worldHeight { get; private set; }
-	[Export]
 	public int worldDepth { get; private set; }
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		world = new Chunk[worldWidth, worldHeight + worldDepth];
+		world = new List<Chunk>();
+
+		worldWidth = GlobalData.worldWidth;
+		worldHeight = GlobalData.worldHeight;
+		worldDepth = GlobalData.worldDepth;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -23,26 +25,54 @@ public partial class WorldData : TileMap
 	{
 	}
 
-	public void save()
+	public void writeChunk(int x, int y)
 	{
-		for(int x = 0; x < world.GetLength(0); x++)
-		{
-            for (int y = 0; y < world.GetLength(1); y++)
-			{
-				world[x, y].save(x, y);
-			}
-        }
+		Chunk chunk = world.Find(c => (c.x == x && c.y == y));
+		if (chunk.x != -1)
+			chunk.save();
 	}
-	public void load()
+	public void readChunk(int x, int y)
 	{
-        for (int x = 0; x < world.GetLength(0); x++)
+		Chunk c = new Chunk(x, y);
+
+		if (!world.Contains<Chunk>(c))
+		{
+			c.load();
+			world.Add(c);
+			
+		}
+	}
+
+	public void loadChunk(Chunk chunk)
+	{
+		for (int x = 0; x < 32; x++)
+		{
+			for(int y = 0; y < 32; y++)
+			{
+				addTileToMap(chunk.x * 32 + x, chunk.y * 32 + y, chunk.getTile(x, y));
+			}
+		}
+	}
+
+	public void unloadChunk(int x, int y)
+    {
+        for (int i = 0; i < 32; i++)
         {
-            for (int y = 0; y < world.GetLength(1); y++)
+            for (int j = 0; j < 32; j++)
             {
-                world[x, y].load(x, y);
+				removeTileFromMap(x*32 + i, y*32 + j);
             }
         }
     }
+    public void addTileToMap(int x, int y, byte tile)
+    {
+		SetCell(0, new Vector2I(x - worldWidth*16, y - worldHeight*32), 0, new Vector2I(tile%16, tile/16));
+	}
+
+	public void removeTileFromMap(int x, int y)
+	{
+		EraseCell(0, new Vector2I(x - worldWidth * 16, y - worldHeight * 32));
+	}
 
 	public void setTile(int x, int y, byte tile)
 	{
@@ -66,22 +96,26 @@ public partial class WorldData : TileMap
 
 	public void setTileDirect(int x, int y, byte tile)
 	{
-		world[x / 32, y / 32].setTile(x % 32, y % 32, tile);
+		Chunk chunk = world.Find(c => (c.x == x/32 && c.y == y/32));
+		chunk.setTile(x % 32, y % 32, tile);
 	}
 
 	public void setTileDirect(Vector2I coords, byte tile)
 	{
-		world[coords.X / 32, coords.Y / 32].setTile(coords.X % 32, coords.Y % 32, tile);
+		Chunk chunk = world.Find(c => (c.x == coords.X / 32 && c.y == coords.Y / 32));
+		chunk.setTile(coords.X % 32, coords.Y % 32, tile);
 	}
 
 	public byte getTileDirect(int x, int y)
 	{
-		return world[x / 32, y / 32].getTile(x % 32, y % 32);
+		Chunk chunk = world.Find(c => (c.x == x / 32 && c.y == y / 32));
+		return chunk.getTile(x % 32, y % 32);
 	}
 
 	public byte getTileDirect(Vector2I coords)
 	{
-		return world[coords.X / 32, coords.Y / 32].getTile(coords.X % 32, coords.Y % 32);
+		Chunk chunk = world.Find(c => (c.x == coords.X / 32 && c.y == coords.Y / 32));
+		return chunk.getTile(coords.X % 32, coords.Y % 32);
 	}
 
 	public Vector2I TiletoDirect(Vector2I tileCoords)
@@ -92,74 +126,5 @@ public partial class WorldData : TileMap
 	public Vector2I DirecttoTile(Vector2I directCoords)
 	{
 		return new Vector2I(directCoords.X - worldWidth / 2, directCoords.Y - worldHeight);
-	}
-
-	public void printSize()
-	{
-		GD.Print(world.Length);
-	}
-
-	public class Chunk
-	{
-		private byte[,] chunk;
-
-		public Chunk() 
-		{
-			chunk = null;
-		}
-
-		public void save(int x, int y)
-		{
-			if (chunk == null) return;
-			using var file = FileAccess.Open("user://Saves//Test//level//" + x + "," + y, FileAccess.ModeFlags.Write);
-			foreach(byte b in chunk)
-			{
-				file.Store8(b);
-			}
-			chunk = null;
-		}
-
-		public void load(int x, int y)
-		{
-			if (chunk != null) return;
-			chunk = new byte[32, 32];
-			using var file = FileAccess.Open("user://Saves//Test//level//" + x + "," + y, FileAccess.ModeFlags.Read);
-			int i = 0, j = 0;
-			while(file.GetPosition() < file.GetLength())
-			{
-				chunk[i, j] = file.Get8();
-				i++;
-				if(i > 31)
-				{
-					i = 0;
-					j++;
-				}
-			}
-        }
-
-        public void init()
-		{
-			chunk = new byte[32, 32];
-		}
-
-		public void setTile(int x, int y, byte tile)
-		{
-			chunk[x, y] = tile;
-		}
-
-		public void setTile(Vector2I coords, byte tile)
-		{
-			chunk[coords.X, coords.Y] = tile;
-		}
-
-		public byte getTile(int x, int y)
-		{
-			return chunk[x, y];
-		}
-
-		public byte getTile(Vector2I coords)
-		{
-			return chunk[coords.X, coords.Y];
-		}
 	}
 }

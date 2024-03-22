@@ -1,0 +1,90 @@
+using Godot;
+using System;
+
+public class Chunk
+{
+    private byte[,] chunk;
+    public int x { get; private set; }
+    public int y { get; private set; }
+
+    public Chunk()
+    {
+        x = -1;
+        y = -1;
+    }
+
+    public Chunk(int x, int y)
+    {
+        this.x = x;
+        this.y = y;
+    }
+
+    public void save()
+    {
+        using var file = FileAccess.Open("user://Saves//Test//level//" + x + "," + y, FileAccess.ModeFlags.Write);
+        foreach (byte b in chunk)
+        {
+            file.Store8(b);
+        }
+        chunk = null;
+    }
+
+    public void load()
+    {
+        chunk = new byte[32, 32];
+        using var file = FileAccess.Open("user://Saves//Test//level//" + x + "," + y, FileAccess.ModeFlags.Read);
+        int i = 0, j = 0;
+        while (file.GetPosition() < file.GetLength())
+        {
+            chunk[i, j] = file.Get8();
+            i++;
+            if (i > 31)
+            {
+                i = 0;
+                j++;
+            }
+        }
+    }
+
+    public static bool operator ==(Chunk c1, Chunk c2)
+    {
+        return c1.x == c2.x && c1.y == c2.y;
+    }
+
+    public static bool operator !=(Chunk c1, Chunk c2)
+    {
+        return c1.x != c2.x || c1.y != c2.y;
+    }
+
+    public override bool Equals(object obj)
+    {
+        if (obj is Chunk)
+        {
+            Chunk c = obj as Chunk;
+            return this.x == c.x && this.y == c.y;
+        }
+        return false;
+    }
+
+    public override int GetHashCode() => (x, y).GetHashCode();
+
+    public void setTile(int x, int y, byte tile)
+    {
+        chunk[x, y] = tile;
+    }
+
+    public void setTile(Vector2I coords, byte tile)
+    {
+        chunk[coords.X, coords.Y] = tile;
+    }
+
+    public byte getTile(int x, int y)
+    {
+        return chunk[x, y];
+    }
+
+    public byte getTile(Vector2I coords)
+    {
+        return chunk[coords.X, coords.Y];
+    }
+}
