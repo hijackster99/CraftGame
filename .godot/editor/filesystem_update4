@@ -1,5 +1,5 @@
-res://Scenes/WorldGen.tscn
-res://Scenes/World.tscn
 res://Scripts/Controller.cs
 res://Scripts/WorldData.cs
 res://Scripts/WorldGenerator.cs
+res://Scenes/World.tscn
+res://Scenes/WorldGen.tscn

@@ -6,6 +6,9 @@ public partial class WorldData : TileMap
 {
 	private List<Chunk> world;
 
+	[Export]
+	public CharacterBody2D player;
+
 	public int worldWidth { get; private set; }
 	public int worldHeight { get; private set; }
 	public int worldDepth { get; private set; }
@@ -23,6 +26,33 @@ public partial class WorldData : TileMap
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		Vector2I mapPos = LocalToMap(player.Position);
+		//Unload old chunks
+		foreach(Chunk c in world)
+		{
+			if(c.x - (mapPos.X/32) + (worldWidth/2) > 2 || c.y - (mapPos.Y/32 + worldHeight) > 2 || c.x - (mapPos.X / 32) + (worldWidth / 2) < -2 || c.y - (mapPos.Y / 32 + worldHeight) < -2)
+			{
+				c.save();
+				unloadChunk(c.x, c.y);
+			}
+		}
+
+		//Load new chunks
+		for(int i = -2; i < 3; i++)
+		{
+			for(int j = -2; j < 3; j++)
+			{
+				if(!world.Contains(new Chunk(i + (mapPos.X/32) + (worldWidth / 2), j + (mapPos.Y / 32) + worldHeight)))
+				{
+					Chunk c = readChunk(i + (mapPos.X/32) + (worldWidth / 2), j + (mapPos.Y/32) + worldHeight);
+
+					if (c != null)
+					{
+						loadChunk(c);
+					}
+				}
+			}
+		}
 	}
 
 	public void writeChunk(int x, int y)
@@ -31,16 +61,16 @@ public partial class WorldData : TileMap
 		if (chunk.x != -1)
 			chunk.save();
 	}
-	public void readChunk(int x, int y)
+	public Chunk readChunk(int x, int y)
 	{
 		Chunk c = new Chunk(x, y);
 
 		if (!world.Contains<Chunk>(c))
 		{
 			c.load();
-			world.Add(c);
-			
+			return c;
 		}
+		return null;
 	}
 
 	public void loadChunk(Chunk chunk)
@@ -52,20 +82,21 @@ public partial class WorldData : TileMap
 				addTileToMap(chunk.x * 32 + x, chunk.y * 32 + y, chunk.getTile(x, y));
 			}
 		}
+		world.Add(chunk);
 	}
 
 	public void unloadChunk(int x, int y)
-    {
-        for (int i = 0; i < 32; i++)
-        {
-            for (int j = 0; j < 32; j++)
-            {
+	{
+		for (int i = 0; i < 32; i++)
+		{
+			for (int j = 0; j < 32; j++)
+			{
 				removeTileFromMap(x*32 + i, y*32 + j);
-            }
-        }
-    }
-    public void addTileToMap(int x, int y, byte tile)
-    {
+			}
+		}
+	}
+	public void addTileToMap(int x, int y, byte tile)
+	{
 		SetCell(0, new Vector2I(x - worldWidth*16, y - worldHeight*32), 0, new Vector2I(tile%16, tile/16));
 	}
 

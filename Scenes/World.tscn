@@ -72,10 +72,11 @@ sources/0 = SubResource("TileSetAtlasSource_hoi26")
 
 [node name="World" type="Node2D"]
 
-[node name="TileMap" type="TileMap" parent="."]
+[node name="TileMap" type="TileMap" parent="." node_paths=PackedStringArray("player")]
 tile_set = SubResource("TileSet_vspap")
 format = 2
 script = ExtResource("1_xsc6i")
+player = NodePath("Player")
 
 [node name="Player" type="CharacterBody2D" parent="TileMap"]
 position = Vector2(0, -15)

@@ -1,5 +1,7 @@
 using Godot;
 using System;
+using System.IO;
+using FileAccess = Godot.FileAccess;
 
 public partial class WorldGenerator : Node
 {
@@ -11,8 +13,6 @@ public partial class WorldGenerator : Node
     private int worldHeight;
     [Export]
     private int worldDepth;
-
-    private String worldName = "Test";
 
     System.Threading.Thread worldGen;
 
@@ -34,7 +34,7 @@ public partial class WorldGenerator : Node
     {
         if (!worldGen.IsAlive)
         {
-            save();
+            //save();
 
             GetTree().ChangeSceneToFile("res://Scenes/World.tscn");
         }
@@ -42,12 +42,12 @@ public partial class WorldGenerator : Node
 
     public void generateWorld()
     {
-        initializeWorldGen();
+        //initializeWorldGen();
     }
 
     public void initializeWorldGen()
     {
-        for (int x = worldWidth * -16; x < worldWidth * 16; x++)
+        for (int x = 0; x < worldWidth * 32; x++)
         {
             for (int y = 0; y < worldDepth * 32; y++)
             {
@@ -62,7 +62,7 @@ public partial class WorldGenerator : Node
         {
             for(int y = 0; y < worldHeight + worldDepth; y++)
             {
-                using var file = FileAccess.Open("user://Saves//" + worldName + "//level//chunk" + x + "_" + y, FileAccess.ModeFlags.Write);
+                using var file = FileAccess.Open("user://Saves/" + GlobalData.name + "/level/chunk" + x + "_" + y + ".dat", FileAccess.ModeFlags.Write);
 
                 for(int i = 0; i < 1024; i++)
                 {
