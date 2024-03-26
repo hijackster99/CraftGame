@@ -2,12 +2,17 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 public partial class WorldData : TileMap
 {
 	private List<Chunk> world;
 
+	private Thread readWrite;
+
 	[Export]
 	public CharacterBody2D player;
+
+	private Vector2I mapPos;
 
 	public int worldWidth { get; private set; }
 	public int worldHeight { get; private set; }
@@ -21,36 +26,86 @@ public partial class WorldData : TileMap
 		worldWidth = GlobalData.worldWidth;
 		worldHeight = GlobalData.worldHeight;
 		worldDepth = GlobalData.worldDepth;
+
+		loadSpawn();
+
+		readWrite = new Thread(ReadWrite);
+		readWrite.Start();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		Vector2I mapPos = LocalToMap(player.Position);
-		//Unload old chunks
-		foreach(Chunk c in world)
+		mapPos = LocalToMap(player.Position);
+
+		GD.Print(GetUsedCells(0).Count());
+
+        for (int i = 0; i < world.Count(); i++)
 		{
-			if(c.x - (mapPos.X/32) + (worldWidth/2) > 2 || c.y - (mapPos.Y/32 + worldHeight) > 2 || c.x - (mapPos.X / 32) + (worldWidth / 2) < -2 || c.y - (mapPos.Y / 32 + worldHeight) < -2)
+			if(world[i].state == 1)
 			{
-				c.save();
-				unloadChunk(c.x, c.y);
+				loadChunk(world[i]);
+                world[i].state = 2;
+			}
+			else if(world[i].state == 3)
+			{
+				unloadChunk(world[i]);
+				world.Remove(world[i]);
 			}
 		}
+	}
 
-		//Load new chunks
+	public void ReadWrite()
+	{
+		while(readWrite.ThreadState == ThreadState.Running)
+		{
+			try
+			{
+				//Unload chunks
+				for (int i = 0; i < world.Count(); i++)
+				{
+					if (world[i].state != 3)
+					{
+						if (world[i].x - (mapPos.X + worldWidth * 16) / 32 > 2 || world[i].x - (mapPos.X + worldWidth * 16) / 32 < -2 || world[i].y - (mapPos.Y + worldHeight * 32) / 32 > 2 || world[i].y - (mapPos.Y + worldHeight * 32) / 32 < -2)
+						{
+							if (world[i].dirty)
+							{
+								world[i].save();
+							}
+							world[i].state = 3;
+						}
+					}
+				}
+			}catch(ArgumentOutOfRangeException e)
+			{
+
+			}
+
+			//Load new chunks
+			for (int i = -2; i < 3; i++)
+			{
+				for (int j = -2; j < 3; j++)
+				{
+					Chunk c = readChunk(i + (mapPos.X / 32) + (worldWidth / 2), j + (mapPos.Y / 32) + worldHeight);
+					if(c != null)
+					{
+						c.state = 1;
+						world.Add(c);
+					}
+				}
+			}
+		}
+	}
+
+	public void loadSpawn()
+	{
 		for(int i = -2; i < 3; i++)
 		{
 			for(int j = -2; j < 3; j++)
 			{
-				if(!world.Contains(new Chunk(i + (mapPos.X/32) + (worldWidth / 2), j + (mapPos.Y / 32) + worldHeight)))
-				{
-					Chunk c = readChunk(i + (mapPos.X/32) + (worldWidth / 2), j + (mapPos.Y/32) + worldHeight);
-
-					if (c != null)
-					{
-						loadChunk(c);
-					}
-				}
+				Chunk c = readChunk((worldWidth/2) + i, worldHeight + j);
+				world.Add(c);
+				loadChunk(c);
 			}
 		}
 	}
@@ -82,16 +137,15 @@ public partial class WorldData : TileMap
 				addTileToMap(chunk.x * 32 + x, chunk.y * 32 + y, chunk.getTile(x, y));
 			}
 		}
-		world.Add(chunk);
 	}
 
-	public void unloadChunk(int x, int y)
+	public void unloadChunk(Chunk c)
 	{
 		for (int i = 0; i < 32; i++)
 		{
 			for (int j = 0; j < 32; j++)
 			{
-				removeTileFromMap(x*32 + i, y*32 + j);
+				removeTileFromMap(c.x*32 + i, c.y*32 + j);
 			}
 		}
 	}

@@ -4,8 +4,8 @@ using System;
 public class GlobalData
 {
 	public static int worldWidth;
-    public static int worldHeight;
-    public static int worldDepth;
+	public static int worldHeight;
+	public static int worldDepth;
 
-    public static String name = "Test";
+	public static String name = "Test";
 }
