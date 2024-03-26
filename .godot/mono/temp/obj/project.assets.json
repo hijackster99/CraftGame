@@ -93,11 +93,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\USERS\\JONAT\\ONEDRIVE\\DOCUMENTS\\CRAFTGAME\\Start with Nothing.csproj",
+      "projectUniqueName": "C:\\USERS\\JONAT\\DOCUMENTS\\GODOT\\CRAFTGAME\\Start with Nothing.csproj",
       "projectName": "Start with Nothing",
-      "projectPath": "C:\\USERS\\JONAT\\ONEDRIVE\\DOCUMENTS\\CRAFTGAME\\Start with Nothing.csproj",
+      "projectPath": "C:\\USERS\\JONAT\\DOCUMENTS\\GODOT\\CRAFTGAME\\Start with Nothing.csproj",
       "packagesPath": "C:\\Users\\jonat\\.nuget\\packages\\",
-      "outputPath": "C:\\USERS\\JONAT\\ONEDRIVE\\DOCUMENTS\\CRAFTGAME\\.godot\\mono\\temp\\obj\\",
+      "outputPath": "C:\\USERS\\JONAT\\DOCUMENTS\\GODOT\\CRAFTGAME\\.godot\\mono\\temp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\jonat\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -120,6 +120,11 @@
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -153,15 +158,15 @@
         "downloadDependencies": [
           {
             "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[6.0.26, 6.0.26]"
+            "version": "[6.0.28, 6.0.28]"
           },
           {
             "name": "Microsoft.NETCore.App.Ref",
-            "version": "[6.0.26, 6.0.26]"
+            "version": "[6.0.28, 6.0.28]"
           },
           {
             "name": "Microsoft.WindowsDesktop.App.Ref",
-            "version": "[6.0.26, 6.0.26]"
+            "version": "[6.0.28, 6.0.28]"
           }
         ],
         "frameworkReferences": {
@@ -169,7 +174,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }

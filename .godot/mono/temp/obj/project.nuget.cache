@@ -1,15 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "B+kAwQHoI7VFTi+pwS9AlP5wbx9TZt6LQ2T/88z09mxFyjCy6I69IKJndYrbeixV/wSazLLKhnYT9mxZiKR/gg==",
+  "dgSpecHash": "8HJ1qnaWSgB1/inXnMLYZgR1P8aUCcDKz2qkSTJVxeK8qhmerhuIb73nDgsRXrKDsXSBXnu7P70/IFpPulpcRw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\jonat\\OneDrive\\Documents\\CraftGame\\Start with Nothing.csproj",
+  "projectFilePath": "C:\\USERS\\JONAT\\DOCUMENTS\\GODOT\\CRAFTGAME\\Start with Nothing.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\jonat\\.nuget\\packages\\godot.sourcegenerators\\4.2.1\\godot.sourcegenerators.4.2.1.nupkg.sha512",
     "C:\\Users\\jonat\\.nuget\\packages\\godotsharp\\4.2.1\\godotsharp.4.2.1.nupkg.sha512",
     "C:\\Users\\jonat\\.nuget\\packages\\godotsharpeditor\\4.2.1\\godotsharpeditor.4.2.1.nupkg.sha512",
-    "C:\\Users\\jonat\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.26\\microsoft.netcore.app.ref.6.0.26.nupkg.sha512",
-    "C:\\Users\\jonat\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.26\\microsoft.windowsdesktop.app.ref.6.0.26.nupkg.sha512",
-    "C:\\Users\\jonat\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.26\\microsoft.aspnetcore.app.ref.6.0.26.nupkg.sha512"
+    "C:\\Users\\jonat\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.28\\microsoft.windowsdesktop.app.ref.6.0.28.nupkg.sha512",
+    "C:\\Users\\jonat\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.28\\microsoft.netcore.app.ref.6.0.28.nupkg.sha512",
+    "C:\\Users\\jonat\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.28\\microsoft.aspnetcore.app.ref.6.0.28.nupkg.sha512"
   ],
   "logs": []
 }
